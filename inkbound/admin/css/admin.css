@@ -1,0 +1,31 @@
+.inkbound-wrap .inkbound-admin-lede { color: #646970; max-width: 42rem; }
+.inkbound-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	gap: 12px;
+	margin: 16px 0 24px;
+}
+.inkbound-stats div {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	padding: 16px;
+}
+.inkbound-stats strong { display: block; font-size: 28px; }
+.inkbound-stats span { color: #646970; }
+.inkbound-recent { list-style: disc; padding-left: 1.2rem; }
+.inkbound-recent span { color: #646970; margin-left: 0.4rem; }
+.inkbound-chapter-table { margin-top: 8px; }
+.inkbound-mail-item {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	padding: 12px 16px;
+	margin: 12px 0;
+}
+.inkbound-mail-item pre {
+	white-space: pre-wrap;
+	background: #f6f7f7;
+	padding: 8px;
+	overflow: auto;
+}
