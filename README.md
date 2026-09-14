@@ -2,7 +2,7 @@
 
 [github.com/doodersrage/inkbound](https://github.com/doodersrage/inkbound)
 
-WordPress can publish posts. It cannot, natively, run a **serialized fiction / web-novel** site — the chapter desk, follow list, “new chapter” mail, and continue-reading state that people expect from Royal Road or Substack.
+WordPress can publish posts. It cannot, natively, run a **serialized fiction / web-novel** site — chapter desks, follow lists, “new chapter” mail, and continue-reading state.
 
 Inkbound is a plugin that adds that layer.
 
@@ -62,4 +62,16 @@ Turn confirmation on in settings before using guest email subscribe in productio
 
 ## License
 
-GPL-2.0-or-later.
+GPL-2.0-or-later. See `inkbound/LICENSE`.
+
+## WordPress.org submission
+
+Marketplace listing assets live in `.wordpress-org/` (banners, icons, screenshots) — upload those to SVN `assets/`, not into the plugin zip.
+
+1. Enable 2FA on your WordPress.org account.
+2. Confirm `Contributors: doodersrage` in `inkbound/readme.txt` matches your .org username.
+3. Run [Plugin Check](https://wordpress.org/plugins/plugin-check/) (Plugin Repo category) against a local install.
+4. Zip **only** the inner `inkbound/` folder (exclude `bin/`, `.git`, `.wordpress-org`, this README).
+5. Submit at https://wordpress.org/plugins/developers/add/
+
+Replace the placeholder screenshots in `.wordpress-org/` with real UI captures from a local install before you submit.

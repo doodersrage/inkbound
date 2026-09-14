@@ -92,7 +92,7 @@ require INKB_DIR . 'templates/parts/header.php';
 					<input type="email" name="email" required placeholder="you@example.com" value="<?php echo is_user_logged_in() ? esc_attr( wp_get_current_user()->user_email ) : ''; ?>">
 				</label>
 				<button class="ink-btn ink-btn--ghost" type="submit"><?php esc_html_e( 'Subscribe', 'inkbound' ); ?></button>
-				<p><?php esc_html_e( 'Substack-style delivery: the chapter lands in your inbox when it publishes. Unsubscribe any time.', 'inkbound' ); ?></p>
+				<p><?php esc_html_e( 'Email delivery: the chapter lands in your inbox when it publishes. Unsubscribe any time.', 'inkbound' ); ?></p>
 			</form>
 		</div>
 	</div>

@@ -36,7 +36,13 @@ $genre_n    = ( $genres && ! is_wp_error( $genres ) ) ? $genres[0]->name : '';
 		<h2 class="ink-card__title"><a href="<?php echo esc_url( get_permalink( $story ) ); ?>"><?php echo esc_html( $story->post_title ); ?></a></h2>
 		<?php if ( $subtitle ) : ?><p class="ink-card__sub"><?php echo esc_html( $subtitle ); ?></p><?php endif; ?>
 		<p class="ink-card__meta">
-			<?php echo esc_html( sprintf( '%s ch · %s words · %s following', $chapters, inkbound_format_count( $words ), inkbound_format_count( $followers ) ) ); ?>
+			<?php echo esc_html( sprintf(
+				/* translators: 1: chapter count, 2: word count, 3: follower count */
+				__( '%1$s ch · %2$s words · %3$s following', 'inkbound' ),
+				$chapters,
+				inkbound_format_count( $words ),
+				inkbound_format_count( $followers )
+			) ); ?>
 		</p>
 		<?php if ( $progress ) : ?>
 			<p class="ink-card__progress">

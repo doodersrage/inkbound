@@ -99,7 +99,7 @@ require INKB_DIR . 'templates/parts/header.php';
 	<?php if ( ! $following ) : ?>
 		<section class="ink-cta">
 			<h2><?php esc_html_e( 'Get the next chapter', 'inkbound' ); ?></h2>
-			<p><?php esc_html_e( 'Follow to keep progress across devices, and subscribe if you want the chapter in your inbox the way Substack would send it.', 'inkbound' ); ?></p>
+			<p><?php esc_html_e( 'Follow to keep progress across devices, and subscribe if you want new chapters delivered to your inbox.', 'inkbound' ); ?></p>
 			<form class="ink-subscribe" method="post">
 				<?php wp_nonce_field( 'inkbound_front' ); ?>
 				<input type="hidden" name="inkbound_action" value="subscribe_email">

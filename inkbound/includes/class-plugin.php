@@ -54,6 +54,7 @@ class Inkbound_Plugin {
 
 	public function boot(): void {
 		$this->maybe_upgrade();
+		$this->load_textdomain();
 
 		Inkbound_CPT::instance()->boot();
 		Inkbound_Follow::instance()->boot();
@@ -69,11 +70,43 @@ class Inkbound_Plugin {
 		add_filter( 'query_vars', array( $this, 'query_vars' ) );
 		add_action( 'inkbound_process_mail_queue', array( Inkbound_Mail::instance(), 'process_queue' ) );
 		add_filter( 'cron_schedules', array( $this, 'cron_schedules' ) );
+		add_action( 'admin_init', array( $this, 'privacy_policy_content' ) );
 
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			require_once INKB_DIR . 'includes/class-cli.php';
 			WP_CLI::add_command( 'inkbound', 'Inkbound_CLI' );
 		}
+	}
+
+	/**
+	 * Load translations for local / non-.org installs.
+	 */
+	public function load_textdomain(): void {
+		load_plugin_textdomain(
+			'inkbound',
+			false,
+			dirname( plugin_basename( INKB_FILE ) ) . '/languages'
+		);
+	}
+
+	/**
+	 * Suggested privacy policy text for Tools → Privacy.
+	 */
+	public function privacy_policy_content(): void {
+		if ( ! function_exists( 'wp_add_privacy_policy_content' ) ) {
+			return;
+		}
+
+		$content = sprintf(
+			'<p>%1$s</p><ul><li>%2$s</li><li>%3$s</li><li>%4$s</li><li>%5$s</li></ul>',
+			esc_html__( 'Inkbound helps readers follow serial stories and optionally receive chapter update emails. When using this plugin you should disclose:', 'inkbound' ),
+			esc_html__( 'Email addresses collected for chapter subscriptions, confirmation tokens, and unsubscribe links.', 'inkbound' ),
+			esc_html__( 'Account-linked follows and on-site update notices for logged-in readers.', 'inkbound' ),
+			esc_html__( 'A guest reader cookie (inkbound_rid) used only to restore reading progress across visits.', 'inkbound' ),
+			esc_html__( 'Optional mail delivery logs retained in the WordPress options table for troubleshooting.', 'inkbound' )
+		);
+
+		wp_add_privacy_policy_content( 'Inkbound', wp_kses_post( $content ) );
 	}
 
 	public function cron_schedules( array $schedules ): array {

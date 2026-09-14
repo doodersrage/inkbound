@@ -51,7 +51,7 @@ $followed = is_user_logged_in() ? Inkbound_Follow::library_story_ids( get_curren
 	<?php if ( ! is_user_logged_in() ) : ?>
 		<p class="ink-empty-line"><?php echo wp_kses_post( sprintf( __( '<a href="%s">Sign in</a> to keep a follow list and get on-site chapter alerts.', 'inkbound' ), esc_url( wp_login_url( inkbound_url( 'library' ) ) ) ) ); ?></p>
 	<?php elseif ( ! $followed ) : ?>
-		<p class="ink-empty-line"><?php esc_html_e( 'You are not following anything yet. Follow from a story page — it is the Royal Road-style bell without leaving WordPress.', 'inkbound' ); ?></p>
+		<p class="ink-empty-line"><?php esc_html_e( 'You are not following anything yet. Follow from a story page to build your library.', 'inkbound' ); ?></p>
 	<?php else : ?>
 		<div class="ink-grid">
 			<?php

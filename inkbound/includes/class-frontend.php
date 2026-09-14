@@ -89,13 +89,8 @@ class Inkbound_Frontend {
 		if ( ! inkbound_is_app_request() ) {
 			return;
 		}
-		wp_enqueue_style(
-			'inkbound-fonts',
-			'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Figtree:wght@400;500;600;700&display=swap',
-			array(),
-			null
-		);
-		wp_enqueue_style( 'inkbound', INKB_URL . 'public/css/inkbound.css', array( 'inkbound-fonts' ), INKB_VERSION );
+		// System stacks only — no remote webfonts (WordPress.org guideline).
+		wp_enqueue_style( 'inkbound', INKB_URL . 'public/css/inkbound.css', array(), INKB_VERSION );
 		wp_enqueue_script( 'inkbound', INKB_URL . 'public/js/inkbound.js', array(), INKB_VERSION, true );
 
 		$story_id   = 0;

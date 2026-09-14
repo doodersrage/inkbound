@@ -57,7 +57,7 @@ class Inkbound_Admin {
 		add_submenu_page( 'inkbound', __( 'Chapters', 'inkbound' ), __( 'Chapters', 'inkbound' ), 'edit_posts', 'edit.php?post_type=inkbound_chapter' );
 		add_submenu_page( 'inkbound', __( 'Genres', 'inkbound' ), __( 'Genres', 'inkbound' ), 'manage_categories', 'edit-tags.php?taxonomy=inkbound_genre&post_type=inkbound_story' );
 		add_submenu_page( 'inkbound', __( 'Tropes', 'inkbound' ), __( 'Tropes', 'inkbound' ), 'manage_categories', 'edit-tags.php?taxonomy=inkbound_trope&post_type=inkbound_story' );
-		add_submenu_page( 'inkbound', __( 'Subscribers', 'inkbound' ), __( 'Subscribers', 'inkbound' ), 'edit_posts', 'inkbound-subs', array( $this, 'render_subs' ) );
+		add_submenu_page( 'inkbound', __( 'Subscribers', 'inkbound' ), __( 'Subscribers', 'inkbound' ), 'manage_options', 'inkbound-subs', array( $this, 'render_subs' ) );
 		add_submenu_page( 'inkbound', __( 'Update mail', 'inkbound' ), __( 'Update mail', 'inkbound' ), 'manage_options', 'inkbound-mail', array( $this, 'render_mail' ) );
 		add_submenu_page( 'inkbound', __( 'Settings', 'inkbound' ), __( 'Settings', 'inkbound' ), 'manage_options', 'inkbound-settings', array( $this, 'render_settings' ) );
 	}
@@ -372,6 +372,9 @@ class Inkbound_Admin {
 	}
 
 	public function render_subs(): void {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'You do not have permission to view subscribers.', 'inkbound' ) );
+		}
 		global $wpdb;
 		$rows = $wpdb->get_results( 'SELECT * FROM ' . Inkbound_Follow::table() . ' ORDER BY created_at DESC LIMIT 200' );
 		?>
@@ -490,7 +493,7 @@ class Inkbound_Admin {
 					<tr>
 						<th><?php esc_html_e( 'Chapter emails', 'inkbound' ); ?></th>
 						<td>
-							<label><input type="radio" name="inkbound_options[email_mode]" value="full" <?php checked( $opts['email_mode'], 'full' ); ?>> <?php esc_html_e( 'Send the full chapter (Substack-style)', 'inkbound' ); ?></label><br>
+							<label><input type="radio" name="inkbound_options[email_mode]" value="full" <?php checked( $opts['email_mode'], 'full' ); ?>> <?php esc_html_e( 'Send the full chapter in the email', 'inkbound' ); ?></label><br>
 							<label><input type="radio" name="inkbound_options[email_mode]" value="excerpt" <?php checked( $opts['email_mode'], 'excerpt' ); ?>> <?php esc_html_e( 'Send an excerpt and a link to read on-site', 'inkbound' ); ?></label>
 						</td>
 					</tr>

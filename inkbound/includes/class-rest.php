@@ -134,6 +134,18 @@ class Inkbound_REST {
 	}
 
 	public function subscribe_email( WP_REST_Request $request ) {
+		$ip       = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : 'unknown';
+		$rate_key = 'inkbound_sub_' . md5( $ip );
+		$attempts = (int) get_transient( $rate_key );
+		if ( $attempts >= 5 ) {
+			return new WP_Error(
+				'rate_limited',
+				__( 'Too many subscription attempts. Please try again later.', 'inkbound' ),
+				array( 'status' => 429 )
+			);
+		}
+		set_transient( $rate_key, $attempts + 1, HOUR_IN_SECONDS );
+
 		$story_id = (int) $request->get_param( 'story_id' );
 		$email    = sanitize_email( (string) $request->get_param( 'email' ) );
 		$result   = Inkbound_Follow::subscribe( $story_id, get_current_user_id(), $email, true );
