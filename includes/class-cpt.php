@@ -215,7 +215,7 @@ class Inkbound_CPT {
 			if ( ! current_user_can( 'edit_post', $post_id ) ) {
 				return;
 			}
-			$story_id = (int) ( $_POST['inkbound_story_id'] ?? 0 );
+			$story_id = isset( $_POST['inkbound_story_id'] ) ? absint( wp_unslash( $_POST['inkbound_story_id'] ) ) : 0;
 			$number   = sanitize_text_field( wp_unslash( $_POST['inkbound_number'] ?? '' ) );
 			$label    = sanitize_text_field( wp_unslash( $_POST['inkbound_label'] ?? '' ) );
 			$note     = wp_kses_post( wp_unslash( $_POST['inkbound_author_note'] ?? '' ) );

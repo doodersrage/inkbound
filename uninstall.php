@@ -15,19 +15,19 @@ delete_option( 'inkbound_options' );
 delete_option( 'inkbound_mail_log' );
 delete_option( 'inkbound_db_version' );
 
-$tables = array(
+$inkbound_tables = array(
 	$wpdb->prefix . 'inkbound_subs',
 	$wpdb->prefix . 'inkbound_progress',
 	$wpdb->prefix . 'inkbound_notices',
 	$wpdb->prefix . 'inkbound_mailq',
 );
 
-foreach ( $tables as $table ) {
+foreach ( $inkbound_tables as $inkbound_table ) {
 	// Table names cannot be parameterized historically; %i is supported since WP 6.2.
-	$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $table ) );
+	$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $inkbound_table ) );
 }
 
-$meta_keys = array(
+$inkbound_meta_keys = array(
 	'_inkbound_number',
 	'_inkbound_label',
 	'_inkbound_author_note',
@@ -45,8 +45,8 @@ $meta_keys = array(
 	'_inkbound_follower_count',
 );
 
-foreach ( $meta_keys as $key ) {
-	delete_post_meta_by_key( $key );
+foreach ( $inkbound_meta_keys as $inkbound_meta_key ) {
+	delete_post_meta_by_key( $inkbound_meta_key );
 }
 
 delete_metadata( 'user', 0, '_inkbound_reader_id', '', true );

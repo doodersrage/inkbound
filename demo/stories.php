@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$p = static function ( ...$paras ): string {
+$inkbound_p = static function ( ...$paras ): string {
 	$html = '';
 	foreach ( $paras as $para ) {
 		$html .= '<p>' . $para . '</p>';
@@ -23,7 +23,7 @@ return array(
 		'slug'      => 'the-gilded-deep',
 		'subtitle'  => 'Salvage in a city that drowned itself on purpose.',
 		'excerpt'   => 'The libraries of Vellum were flooded to keep rivals from reading them. Pell dives for what still has a spine.',
-		'synopsis'  => $p(
+		'synopsis'  => $inkbound_p(
 			'Vellum paid to sink its own archives. Better a drowned book, the merchants said, than a competitor with a clean copy. A generation later the harbor is a stacked necropolis of reading rooms, and salvage divers work the stacks by lantern and lung.',
 			'Pell takes contracts no one else wants: catalogs that still have names attached, doors that should not hold air. When a dive finds a librarian who never left, the city above starts asking who paid for the flood — and who is still paying to keep it wet.'
 		),
@@ -42,7 +42,7 @@ return array(
 				'slug'   => 'the-wake-price',
 				'title'  => 'The Wake Price',
 				'note'   => 'This serial updates on Sundays. Chapter 2 is already up.',
-				'content' => $p(
+				'content' => $inkbound_p(
 					'Pell sold her last dry hour to the harbor office and still came up short. The clerk did not look at her when he said it. He looked at the slate where wake-prices were chalked in a hand too neat for the work: so much per lung, so much per lantern, so much extra if you brought a book up intact. Intact was a joke. Paper that had lived in the Gilded Deep came up as felt.',
 					'“Contract twenty-seven,” the clerk said. “Lower stacks, west colonnade. Catalog only. No retrieval.”',
 					'Catalog-only meant they wanted names, not pages. Names could still be sold. Pages were a liability. Pell signed with a thumbprint because her letters always came out as salvage marks, and because the clerk already knew she would take it. Nobody else dove west. The colonnade had eaten two lamps last month and returned one boot.',
@@ -57,7 +57,7 @@ return array(
 				'number' => '2',
 				'slug'   => 'catalog-of-sunk-names',
 				'title'  => 'Catalog of Sunk Names',
-				'content' => $p(
+				'content' => $inkbound_p(
 					'The harbor office paid her in scrip that could be exchanged for bread, lamp oil, or a single night in a dry bunk if she did not mind the bunk belonging to whoever had drowned last. Pell took the oil. Crick took the bunk and was gone by morning, which she chose to read as luck.',
 					'Contract twenty-seven had a footnote she had missed: <em>Any unlisted door is to be reported, not opened.</em> She reported it. The clerk’s neat hand paused. He asked her to describe the breathing. She said it was like a bellows with manners. He wrote that down too, then paid her the catalog rate and not the door rate, because a door was not a book.',
 					'By afternoon a woman in a rust-colored coat was waiting on the quay with Pell’s slate copied in a better script. “You dove west,” she said. Not a question. “I need the names you did not sell them.”',
@@ -74,7 +74,7 @@ return array(
 				'number' => '3',
 				'slug'   => 'air-on-the-other-side',
 				'title'  => 'Air on the Other Side',
-				'content' => $p(
+				'content' => $inkbound_p(
 					'Pell went back alone because Crick had decided he liked bunks more than brass, and because the rust coat’s fourth name had been her mother’s. Not the name on any plate. The name the harbor used when they still had a kitchen above a bindery, before the flood made kitchens a rumor.',
 					'The door was still breathing. Up close the seam smelled like paper that had never been wet. Pell put her palm on the wood and felt a knock answer from the other side, polite, three times, the way you knocked on a reading-room door when you did not want to startle a copyist.',
 					'She should have surfaced. She had a lantern, a hose, and a contract that paid her not to be curious. She knocked back.',
@@ -91,7 +91,7 @@ return array(
 				'slug'   => 'the-librarian-who-stayed',
 				'title'  => 'The Librarian Who Stayed',
 				'note'   => 'Next week: the rust coat comes back with a writ.',
-				'content' => $p(
+				'content' => $inkbound_p(
 					'Pell reported a door. She did not report a person. The clerk paid the door rate this time, which was less than a life and more than a catalog, and asked if the breathing had stopped. Pell said it had learned manners. He did not write that down.',
 					'The rust coat found her anyway, in the oil line, and did not bother with the skiff. “You opened it,” she said. The house mark on her ring had been polished. Gilt was back in fashion when you needed to look like you had never been poor. “Marell Keep is not a relic. She is a witness. Witnesses are expensive.”',
 					'“Then pay her,” Pell said.',
@@ -110,7 +110,7 @@ return array(
 		'slug'      => 'signal-hollow',
 		'subtitle'  => 'A colony radio that knows the weather before the sky does.',
 		'excerpt'   => 'Kei runs night radio on a world that is officially winding down. A voice on a dead frequency says her name like a check-in.',
-		'synopsis'  => $p(
+		'synopsis'  => $inkbound_p(
 			'Helix Station is in orderly withdrawal: fewer ships, fewer shifts, more forms that say the soil won. Kei prefers the night board. The official channels are quiet. The unofficial ones are supposed to be dead.',
 					'Then a voice comes through on a hollow frequency — no callsign, no packet header — and reads tomorrow’s weather before the sensors post it. It knows Kei’s name. It knows who is still listening. The withdrawal, it turns out, is not as orderly as the memos.'
 		),
@@ -128,7 +128,7 @@ return array(
 				'number' => '1',
 				'slug'   => 'dead-air-named',
 				'title'  => 'Dead Air, Named',
-				'content' => $p(
+				'content' => $inkbound_p(
 					'Kei liked the night board because it did not require optimism. Helix Station’s day shift still performed the fiction of a colony: greenhouses counted, children counted, ships counted. Night shift counted static. Static did not lie about leaving.',
 					'The withdrawal memos used words like <em>orderly</em> and <em>soil fatigue</em>. What they meant was: the beans had failed twice, the third ice hauler had rerouted, and nobody important wanted to be the last signature on a world. Kei’s job was to keep the emergency channel open in case anyone important changed their mind.',
 					'At 02:14 the hollow frequency — a band operations had decommissioned because it bounced wrong off the magnetite hills — said her name. Not a packet. Not a callsign. Just “Kei,” the way a tired supervisor said it when they needed a form signed, and then a weather report for a morning that had not happened: wind from the east basin, grit to two meters, greenhouse three to be tarped by 09:00.',
@@ -141,7 +141,7 @@ return array(
 				'number' => '2',
 				'slug'   => 'weather-that-hasnt-happened',
 				'title'  => 'Weather That Hasn\'t Happened',
-				'content' => $p(
+				'content' => $inkbound_p(
 					'The voice would not give a name. It gave forecasts. It gave them early, and it gave them with the petty accuracy of someone who had worked the same greenhouses: which gasket would go, which kid would try to watch the grit from the west catwalk, which supervisor would call it a sensor drift.',
 					'Kei started tarping greenhouse three at 08:40 on the days she was told to. Day shift called her superstitious and then borrowed her tarps. The withdrawal calendar on the mess wall lost another week. A ship that had been “evaluating capacity” evaluated itself back to the inner worlds.',
 					'“Who are you,” Kei said into the hollow band, because the reel was running and because she was tired of being the only person in the room who believed the air.',
@@ -155,7 +155,7 @@ return array(
 				'number' => '3',
 				'slug'   => 'the-hollow-frequency',
 				'title'  => 'The Hollow Frequency',
-				'content' => $p(
+				'content' => $inkbound_p(
 					'Operations noticed the tarps. Operations noticed the reel. Operations did not notice the thirty-one missing bunks, because missing bunks were a day-shift problem and day shift had a ship to miss.',
 					'Supervisor Adel came to the night board with a smile that had been trained on families. “You’re using a dead band,” she said. “That’s a citation if I log it. I would rather log a commendation for greenhouse three. Tell me you are not talking to withdrawal folklore.”',
 					'Kei almost told the truth. Then she thought of concrete. “I am talking to weather,” she said. “The sensors lag. The hills bounce.”',
@@ -171,7 +171,7 @@ return array(
 				'slug'   => 'everyone-still-listening',
 				'title'  => 'Everyone Still Listening',
 				'note'   => 'The ship’s reply arrives next Wednesday.',
-				'content' => $p(
+				'content' => $inkbound_p(
 					'The ship did not like the manifest. Ships liked clean numbers. Adel did not like that the emergency channel had grown a population overnight. She liked even less that the names were real: techs from the first decade, a botanist listed as transferred, a child who had been “soil-fatigued” off the school roll and not onto any departure.',
 					'“You will close the hollow band,” Adel said. It was not a citation. It was a plea wearing a uniform. “If I put thirty-one extra bodies on a withdrawal that already failed the beans, I do not get a ship. I get a hearing.”',
 					'Kei thought of seats. She thought of concrete. She thought of a voice that had been doing the work of a government without being invited to meetings. “Then the hearing should meet the weather,” she said. “They already know the grit better than your sensors.”',
@@ -189,7 +189,7 @@ return array(
 		'slug'      => 'salt-cipher',
 		'subtitle'  => 'A parish ledger that records drownings before the tide.',
 		'excerpt'   => 'Whitby, 1891. A clerk inherits a book that already knows who the sea will take.',
-		'synopsis'  => $p(
+		'synopsis'  => $inkbound_p(
 			'When parish clerk Ned Harrow dies, his nephew inherits a ledger that does not match the burial register. The extra names are dated in the future. The cipher in the margins is the tide table.',
 			'Elise Quinn — who keeps the actual accounts, and therefore the actual dead — has to decide whether to warn a town that will call her hysterical, or let the ledger finish its arithmetic. Completed in four chapters.'
 		),
@@ -208,7 +208,7 @@ return array(
 				'slug'   => 'the-clerks-remainder',
 				'title'  => 'The Clerk\'s Remainder',
 				'label'  => 'Chapter 1',
-				'content' => $p(
+				'content' => $inkbound_p(
 					'Ned Harrow died the way parish clerks often die: between one column and the next, with ink on his thumb and a look of having been interrupted by something as rude as mortality. Elise Quinn, who had kept the burial register while Ned kept the stories people told about the dead, found the second ledger in the desk that smelled of salt and boiled sweets.',
 					'It did not match. The official register had Sunday’s drowning — a boy from the jetty, already buried, already paid for. Ned’s ledger had the boy, and then three names Elise did not know, dated Thursday week, Friday, and a morning so specific it included the hour the tide would turn.',
 					'In the margin, in Ned’s cramped hand: <em>Not prophecy. Arithmetic. See Whitby table, 1889 reprint, page 12, inverted.</em>',
@@ -220,7 +220,7 @@ return array(
 				'number' => '2',
 				'slug'   => 'names-in-the-margin',
 				'title'  => 'Names in the Margin',
-				'content' => $p(
+				'content' => $inkbound_p(
 					'The mending man was called Bram Sile. He laughed when Elise asked if he would stay off the water Thursday. He had a child’s coat to pay for and a belief that the sea took who it liked, which was true enough to be useless. She gave him Ned’s date anyway. He said clerks saw drowning in every column.',
 					'Elise copied the three future names into a book of her own, because she did not trust a dead man’s arithmetic to survive a vicar’s fireplace. She walked the lanes and matched them to faces: Bram; a visiting school inspector with wet shoes; a girl from the smokehouse who sang while she packed herring.',
 					'The inspector was easiest. He believed in reports. Elise wrote him a report: jetty unsound, tide vicious, Thursday unsuitable for measurements. He postponed. The ledger, when she checked it that evening, had struck his name through with a line so neat it made her ill. Arithmetic could be bargained with. That was worse than prophecy. Prophecy did not take correction.',
@@ -232,7 +232,7 @@ return array(
 				'number' => '3',
 				'slug'   => 'a-tide-that-doesnt-turn',
 				'title'  => 'A Tide That Doesn\'t Turn',
-				'content' => $p(
+				'content' => $inkbound_p(
 					'Thursday came in sideways. The spring tide ignored the vicar and the inspector’s postponed report. Bram went to the water because hiding in a loft felt like dying early. Elise went after him with a boat hook and no authority. Tamsin brought rope and a voice that could cut herring and weather alike.',
 					'They did not save him so much as relocate the drowning. The jetty ladder, moved in the night, dumped him into a stretch of harbor that had a ladder still attached. He came up swearing, alive, expensive. The ledger’s neat hand — and it was still adding lines, which meant either Ned had trained a ghost or someone living was keeping the book — wrote <em>remainder carried</em> beside Bram and added a new date, later, as if the sea kept accounts receivable.',
 					'Elise sat in the clerk’s office with wet hems and understood the cruelty of it. The cipher was not a warning system. It was a bookkeeping of a town that had decided some people were already lost, and was only arguing with the calendar. Someone was feeding the ledger: not the tide table alone, but the poor-book, the vicar’s visiting list, the smokehouse wages. A person with access to all three.',
@@ -244,7 +244,7 @@ return array(
 				'slug'   => 'what-the-ledger-owed',
 				'title'  => 'What the Ledger Owed',
 				'note'   => 'This story is complete.',
-				'content' => $p(
+				'content' => $inkbound_p(
 					'Agnes Harrow did not deny it. Denial was messy. She sat in the kitchen that still thought it belonged to Ned and said, “He would not stop writing drownings after they happened. I put them where they could be useful. A parish that knows the bill can sometimes pay it early.”',
 					'“You copied the poor into the future,” Elise said. “That is not payment. That is a collection notice.”',
 					'Agnes’s mouth was Ned’s mouth, minus the ink. “The inspector lived. Bram lived. Tamsin will live if she stays off the smokehouse roof in the next gale, which I also wrote, because I am not a monster. I am a remainder. The town uses women like us to keep the columns honest and then calls us hysterical when the arithmetic shows.”',

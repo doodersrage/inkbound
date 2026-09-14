@@ -285,7 +285,7 @@ class Inkbound_Admin {
 		if ( 'inkbound_chapter' !== $post_type ) {
 			return;
 		}
-		$selected = isset( $_GET['inkbound_story_filter'] ) ? (int) $_GET['inkbound_story_filter'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$selected = isset( $_GET['inkbound_story_filter'] ) ? absint( wp_unslash( $_GET['inkbound_story_filter'] ) ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$stories  = get_posts(
 			array(
 				'post_type'      => 'inkbound_story',

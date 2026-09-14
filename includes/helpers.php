@@ -286,7 +286,10 @@ function inkbound_next_number( int $story_id ): string {
  * @return WP_Query
  */
 function inkbound_catalog_query(): WP_Query {
-	$paged  = max( 1, (int) get_query_var( 'paged' ), (int) ( $_GET['pg'] ?? 1 ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$paged = max( 1, (int) get_query_var( 'paged' ) );
+	if ( isset( $_GET['pg'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$paged = max( $paged, absint( wp_unslash( $_GET['pg'] ) ) );
+	}
 	$genre  = sanitize_title( wp_unslash( $_GET['genre'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	$status = sanitize_key( wp_unslash( $_GET['status'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	$sort   = sanitize_key( wp_unslash( $_GET['sort'] ?? 'updated' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended

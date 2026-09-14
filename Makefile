@@ -7,7 +7,7 @@ URL     ?= http://127.0.0.1:$(PORT)
 VERSION := $(shell grep -E '^ \* Version:' $(ROOT)/inkbound.php | awk '{print $$3}')
 OUT     ?= $(ROOT)/inkbound-$(VERSION).zip
 
-.PHONY: zip setup serve
+.PHONY: zip setup serve sync-plugin
 
 zip:
 	@stage=$$(mktemp -d); \
@@ -68,3 +68,11 @@ serve: setup
 		"require \$$root . '/index.php';" > "$(WP)/inkbound-router.php"
 	@echo "Inkbound preview: $(URL)"
 	@cd "$(WP)" && exec php -S "0.0.0.0:$(PORT)" -t "$(WP)" "$(WP)/inkbound-router.php"
+
+# Copy a Plugin Check–clean plugin tree (no .git / Makefile / docs) into DEST.
+# Example: make sync-plugin DEST=/path/to/wp-content/plugins/inkbound
+sync-plugin:
+	@test -n "$(DEST)" || (echo "Usage: make sync-plugin DEST=/path/to/wp-content/plugins/inkbound" >&2; exit 1)
+	@mkdir -p "$(DEST)"
+	@rsync -a --delete --exclude-from="$(ROOT)/distignore" --exclude='distignore' --exclude='.git' --exclude='.gitignore' "$(ROOT)/" "$(DEST)/"
+	@echo "Synced clean plugin files to $(DEST)"
