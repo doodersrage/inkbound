@@ -71,7 +71,14 @@ Marketplace listing assets live in `wordpress-org/` (banners, icons, screenshots
 1. Enable 2FA on your WordPress.org account.
 2. Confirm `Contributors: doodersrage` in `readme.txt` matches your .org username.
 3. Run [Plugin Check](https://wordpress.org/plugins/plugin-check/) (Plugin Repo category) against a local install.
-4. Build a release zip with `make zip` (excludes Makefile, `.git`, `wordpress-org`, and other non-plugin files).
-5. Run Plugin Check against that zip (not a full git checkout), then submit at https://wordpress.org/plugins/developers/add/
+4. Build a clean install for Plugin Check (a full git checkout includes `.gitignore`, which PCP rejects as a hidden file):
+
+```bash
+make zip
+# or sync into your site:
+make sync-plugin DEST=/path/to/wp-content/plugins/inkbound
+```
+
+5. Run Plugin Check on that clean copy, then submit the zip at https://wordpress.org/plugins/developers/add/
 
 Replace the placeholder screenshots in `wordpress-org/` with real UI captures from a local install before you submit.
