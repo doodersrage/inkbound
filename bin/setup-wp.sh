@@ -56,7 +56,7 @@ define( 'WP_DEBUG_DISPLAY', false );
 PHP
 fi
 
-ln -sfn "$ROOT/inkbound" "$WP/wp-content/plugins/inkbound"
+ln -sfn "$ROOT" "$WP/wp-content/plugins/inkbound"
 
 if ! wp core is-installed --path="$WP" >/dev/null 2>&1; then
   wp core install \

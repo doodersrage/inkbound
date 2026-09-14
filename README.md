@@ -17,12 +17,13 @@ The public site is a catalog, story pages, and a reader with paper / sepia / nig
 
 ## Install on an existing WordPress site
 
+Clone (or copy) this repository into `wp-content/plugins/inkbound` so `inkbound.php` sits directly in that folder:
+
 ```bash
-git clone https://github.com/doodersrage/inkbound.git
-cp -R inkbound/inkbound /path/to/wordpress/wp-content/plugins/inkbound
+git clone https://github.com/doodersrage/inkbound.git wp-content/plugins/inkbound
 ```
 
-Then activate **Inkbound**. Create a **Story**, then **Chapters** (each chapter must belong to a story). Optional: **Inkbound → Settings** to use the catalog as the homepage, and to choose full-chapter vs excerpt emails.
+Activate **Inkbound**. Create a **Story**, then **Chapters** (each chapter must belong to a story). Optional: **Inkbound → Settings** to use the catalog as the homepage, and to choose full-chapter vs excerpt emails.
 
 Pretty permalinks must be enabled (`Settings → Permalinks`).
 
@@ -62,16 +63,16 @@ Turn confirmation on in settings before using guest email subscribe in productio
 
 ## License
 
-GPL-2.0-or-later. See `inkbound/LICENSE`.
+GPL-2.0-or-later. See `LICENSE`.
 
 ## WordPress.org submission
 
 Marketplace listing assets live in `.wordpress-org/` (banners, icons, screenshots) — upload those to SVN `assets/`, not into the plugin zip.
 
 1. Enable 2FA on your WordPress.org account.
-2. Confirm `Contributors: doodersrage` in `inkbound/readme.txt` matches your .org username.
+2. Confirm `Contributors: doodersrage` in `readme.txt` matches your .org username.
 3. Run [Plugin Check](https://wordpress.org/plugins/plugin-check/) (Plugin Repo category) against a local install.
-4. Zip **only** the inner `inkbound/` folder (exclude `bin/`, `.git`, `.wordpress-org`, this README).
+4. Build a release zip with `./bin/build-zip.sh` (excludes `bin/`, `.git`, `.wordpress-org`, and local preview files).
 5. Submit at https://wordpress.org/plugins/developers/add/
 
 Replace the placeholder screenshots in `.wordpress-org/` with real UI captures from a local install before you submit.

@@ -1,24 +1,19 @@
 Inkbound — local copy
 
-This folder is the project source. It does not include the throwaway
-WordPress preview used in the cloud demo.
-
-Install into WordPress
-----------------------
-Copy the inner `inkbound` directory to:
+This repository is the plugin. Clone or copy it into:
 
   wp-content/plugins/inkbound
 
+so that `inkbound.php` is at:
+
+  wp-content/plugins/inkbound/inkbound.php
+
 Activate Inkbound in wp-admin. Turn on pretty permalinks.
 
-Push to GitHub (https://github.com/doodersrage/inkbound)
---------------------------------------------------------
-  cd inkbound-plugin
-  git init
-  git add .
-  git commit -m "Initial commit: Inkbound WordPress serial fiction plugin"
-  git branch -M main
-  git remote add origin https://github.com/doodersrage/inkbound.git
-  git push -u origin main
+Local preview (optional)
+------------------------
+  ./bin/dev-server.sh
 
-You will be asked to sign in to GitHub on your machine.
+Release zip for WordPress.org
+-----------------------------
+  ./bin/build-zip.sh

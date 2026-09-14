@@ -22,5 +22,5 @@ Submission checklist (owner account)
 1. Enable 2FA on your WordPress.org account.
 2. Confirm Contributors in readme.txt matches your .org username.
 3. Run Plugin Check (Plugin Repo category) and fix blockers.
-4. Zip only the inner `inkbound/` plugin folder (no bin/, .git, .wordpress-org).
+4. Build the zip with ./bin/build-zip.sh (excludes bin/, .git, .wordpress-org).
 5. Submit at https://wordpress.org/plugins/developers/add/
