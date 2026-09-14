@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom Inkbound tables require direct $wpdb access.
+
 class Inkbound_Admin {
 	private static ?self $instance = null;
 
@@ -164,7 +166,7 @@ class Inkbound_Admin {
 		wp_nonce_field( 'inkbound_save_chapter', 'inkbound_chapter_nonce' );
 		$story_id = (int) $post->post_parent;
 		if ( ! $story_id && isset( $_GET['story_id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$story_id = absint( wp_unslash( $_GET['story_id'] ) );
+			$story_id = absint( wp_unslash( $_GET['story_id'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		}
 		$number = (string) get_post_meta( $post->ID, '_inkbound_number', true );
 		$label  = (string) get_post_meta( $post->ID, '_inkbound_label', true );
@@ -314,7 +316,7 @@ class Inkbound_Admin {
 			return;
 		}
 		if ( ! empty( $_GET['inkbound_story_filter'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$query->set( 'post_parent', absint( wp_unslash( $_GET['inkbound_story_filter'] ) ) );
+			$query->set( 'post_parent', absint( wp_unslash( $_GET['inkbound_story_filter'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		}
 	}
 

@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom Inkbound tables require direct $wpdb access.
+
 class Inkbound_Seed {
 	private static ?self $instance = null;
 
@@ -29,8 +31,8 @@ class Inkbound_Seed {
 			$existing = get_posts(
 				array(
 					'post_type'      => 'inkbound_story',
-					'meta_key'       => '_inkbound_demo',
-					'meta_value'     => '1',
+					'meta_key'       => '_inkbound_demo', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Demo reset lookup.
+					'meta_value'     => '1', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Demo reset lookup.
 					'posts_per_page' => -1,
 					'post_status'    => 'any',
 				)

@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom Inkbound tables require direct $wpdb access.
+
 class Inkbound_Mail {
 	private static ?self $instance = null;
 
@@ -176,7 +178,7 @@ class Inkbound_Mail {
 			$inner .= '<p>' . esc_html( wp_trim_words( wp_strip_all_tags( $chapter->post_content ), 80 ) ) . '</p>';
 			$inner .= '<p><a href="' . esc_url( $read_url ) . '" style="background:#9a3b2f;color:#fff;text-decoration:none;padding:10px 16px;border-radius:999px;display:inline-block">' . esc_html__( 'Continue on the site', 'inkbound' ) . '</a></p>';
 		} else {
-			$inner .= wp_kses_post( apply_filters( 'the_content', $chapter->post_content ) );
+			$inner .= wp_kses_post( apply_filters( 'the_content', $chapter->post_content ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Core content filter.
 			if ( $note ) {
 				$inner .= '<div style="margin-top:28px;padding:16px;border-top:1px solid #e6dcc8"><p style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7a6a58">Author\'s note</p>' . wp_kses_post( wpautop( $note ) ) . '</div>';
 			}

@@ -84,7 +84,7 @@ function inkbound_story_chapters( int $story_id, string $status = 'publish' ): a
 		'post_status'    => $status,
 		'posts_per_page' => -1,
 		'orderby'        => 'meta_value_num',
-		'meta_key'       => '_inkbound_number',
+		'meta_key'       => '_inkbound_number', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Chapter order meta.
 		'order'          => 'ASC',
 		'no_found_rows'  => true,
 	);
@@ -288,7 +288,7 @@ function inkbound_next_number( int $story_id ): string {
 function inkbound_catalog_query(): WP_Query {
 	$paged = max( 1, (int) get_query_var( 'paged' ) );
 	if ( isset( $_GET['pg'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$paged = max( $paged, absint( wp_unslash( $_GET['pg'] ) ) );
+		$paged = max( $paged, absint( wp_unslash( $_GET['pg'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 	$genre  = sanitize_title( wp_unslash( $_GET['genre'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	$status = sanitize_key( wp_unslash( $_GET['status'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -329,12 +329,12 @@ function inkbound_catalog_query(): WP_Query {
 			break;
 		case 'popular':
 			$args['orderby']  = 'meta_value_num';
-			$args['meta_key'] = '_inkbound_view_count';
+			$args['meta_key'] = '_inkbound_view_count'; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Popular sort.
 			$args['order']    = 'DESC';
 			break;
 		case 'followers':
 			$args['orderby']  = 'meta_value_num';
-			$args['meta_key'] = '_inkbound_follower_count';
+			$args['meta_key'] = '_inkbound_follower_count'; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Followers sort.
 			$args['order']    = 'DESC';
 			break;
 		case 'updated':

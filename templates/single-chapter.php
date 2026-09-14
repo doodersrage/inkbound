@@ -82,7 +82,7 @@ require INKB_DIR . 'templates/parts/header.php';
 		);
 		?></p>
 		<div class="ink-body">
-			<?php echo wp_kses_post( apply_filters( 'the_content', $chapter->post_content ) ); ?>
+			<?php echo wp_kses_post( apply_filters( 'the_content', $chapter->post_content ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Core content filter. ?>
 		</div>
 		<?php if ( $note ) : ?>
 			<aside class="ink-note">

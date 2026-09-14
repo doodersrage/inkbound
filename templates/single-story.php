@@ -109,7 +109,7 @@ require INKB_DIR . 'templates/parts/header.php';
 
 	<section class="ink-blurb">
 		<h2><?php esc_html_e( 'Synopsis', 'inkbound' ); ?></h2>
-		<?php echo wp_kses_post( apply_filters( 'the_content', $story->post_content ) ); ?>
+		<?php echo wp_kses_post( apply_filters( 'the_content', $story->post_content ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Core content filter. ?>
 	</section>
 
 	<section class="ink-toc" id="chapters">
