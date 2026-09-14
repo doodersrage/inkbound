@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Template-scoped locals.
+
 $story      = $story ?? get_post();
 $status     = get_the_terms( $story, 'inkbound_status' );
 $genres     = get_the_terms( $story, 'inkbound_genre' );
@@ -47,7 +49,15 @@ $genre_n    = ( $genres && ! is_wp_error( $genres ) ) ? $genres[0]->name : '';
 		<?php if ( $progress ) : ?>
 			<p class="ink-card__progress">
 				<a href="<?php echo esc_url( Inkbound_Progress::continue_url( (int) $story->ID ) ); ?>">
-					<?php echo esc_html( sprintf( __( 'Continue · %d%%', 'inkbound' ), (int) $progress->percent ) ); ?>
+					<?php
+					echo esc_html(
+						sprintf(
+							/* translators: %d: reading progress percent */
+							__( 'Continue · %d%%', 'inkbound' ),
+							(int) $progress->percent
+						)
+					);
+					?>
 				</a>
 			</p>
 		<?php endif; ?>

@@ -4,7 +4,7 @@ This repository is the plugin. Clone or copy it into:
 
   wp-content/plugins/inkbound
 
-so that `inkbound.php` is at:
+so that inkbound.php is at:
 
   wp-content/plugins/inkbound/inkbound.php
 
@@ -12,8 +12,11 @@ Activate Inkbound in wp-admin. Turn on pretty permalinks.
 
 Local preview (optional)
 ------------------------
-  ./bin/dev-server.sh
+  make serve
 
-Release zip for WordPress.org
------------------------------
-  ./bin/build-zip.sh
+Release zip for WordPress.org / Plugin Check
+--------------------------------------------
+  make zip
+
+Then install or scan the generated inkbound-*.zip (not the full git tree).
+Git metadata, Makefile, and wordpress-org assets are excluded from that zip.

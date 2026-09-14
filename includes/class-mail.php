@@ -43,7 +43,8 @@ class Inkbound_Mail {
 		global $wpdb;
 		$exists = $wpdb->get_var(
 			$wpdb->prepare(
-				'SELECT id FROM ' . self::queue_table() . ' WHERE sub_id = %d AND chapter_id = %d LIMIT 1',
+				'SELECT id FROM %i WHERE sub_id = %d AND chapter_id = %d LIMIT 1',
+				self::queue_table(),
 				$sub_id,
 				$chapter_id
 			)
@@ -67,7 +68,9 @@ class Inkbound_Mail {
 		global $wpdb;
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
-				'SELECT * FROM ' . self::queue_table() . " WHERE status = 'queued' AND scheduled_at <= %s ORDER BY id ASC LIMIT %d",
+				'SELECT * FROM %i WHERE status = %s AND scheduled_at <= %s ORDER BY id ASC LIMIT %d',
+				self::queue_table(),
+				'queued',
 				current_time( 'mysql' ),
 				$limit
 			)
@@ -114,8 +117,18 @@ class Inkbound_Mail {
 			return;
 		}
 		$url     = home_url( user_trailingslashit( 'inkbound/confirm/' . $sub->confirm_token ) );
-		$subject = sprintf( __( 'Confirm your subscription to %s', 'inkbound' ), $story->post_title );
-		$html    = '<p>' . esc_html( sprintf( __( 'Confirm you want chapter updates for “%s”.', 'inkbound' ), $story->post_title ) ) . '</p>';
+		$subject = sprintf(
+			/* translators: %s: story title */
+			__( 'Confirm your subscription to %s', 'inkbound' ),
+			$story->post_title
+		);
+		$html    = '<p>' . esc_html(
+			sprintf(
+				/* translators: %s: story title */
+				__( 'Confirm you want chapter updates for “%s”.', 'inkbound' ),
+				$story->post_title
+			)
+		) . '</p>';
 		$html   .= '<p><a href="' . esc_url( $url ) . '">' . esc_html__( 'Confirm subscription', 'inkbound' ) . '</a></p>';
 		self::deliver( $sub->email, $subject, self::wrap( $subject, $html ), wp_strip_all_tags( $html ), array( 'type' => 'confirm' ) );
 	}
@@ -209,7 +222,7 @@ class Inkbound_Mail {
 				'status'     => $status,
 				'sent_at'    => 'sent' === $status ? current_time( 'mysql' ) : null,
 				'error_text' => $error,
-				'attempts'   => $wpdb->get_var( $wpdb->prepare( 'SELECT attempts FROM ' . self::queue_table() . ' WHERE id = %d', $id ) ) + 1,
+				'attempts'   => (int) $wpdb->get_var( $wpdb->prepare( 'SELECT attempts FROM %i WHERE id = %d', self::queue_table(), $id ) ) + 1,
 			),
 			array( 'id' => $id )
 		);

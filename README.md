@@ -29,11 +29,10 @@ Pretty permalinks must be enabled (`Settings → Permalinks`).
 
 ## Local preview
 
-Needs PHP 8.1+ with PDO SQLite and [WP-CLI](https://wp-cli.org/).
+Needs PHP 8.1+ with PDO SQLite, [WP-CLI](https://wp-cli.org/), and `make`.
 
 ```bash
-chmod +x bin/setup-wp.sh bin/dev-server.sh
-./bin/dev-server.sh
+make serve
 ```
 
 Open http://127.0.0.1:38471
@@ -67,12 +66,12 @@ GPL-2.0-or-later. See `LICENSE`.
 
 ## WordPress.org submission
 
-Marketplace listing assets live in `.wordpress-org/` (banners, icons, screenshots) — upload those to SVN `assets/`, not into the plugin zip.
+Marketplace listing assets live in `wordpress-org/` (banners, icons, screenshots) — upload those to SVN `assets/`, not into the plugin zip.
 
 1. Enable 2FA on your WordPress.org account.
 2. Confirm `Contributors: doodersrage` in `readme.txt` matches your .org username.
 3. Run [Plugin Check](https://wordpress.org/plugins/plugin-check/) (Plugin Repo category) against a local install.
-4. Build a release zip with `./bin/build-zip.sh` (excludes `bin/`, `.git`, `.wordpress-org`, and local preview files).
-5. Submit at https://wordpress.org/plugins/developers/add/
+4. Build a release zip with `make zip` (excludes Makefile, `.git`, `wordpress-org`, and other non-plugin files).
+5. Run Plugin Check against that zip (not a full git checkout), then submit at https://wordpress.org/plugins/developers/add/
 
-Replace the placeholder screenshots in `.wordpress-org/` with real UI captures from a local install before you submit.
+Replace the placeholder screenshots in `wordpress-org/` with real UI captures from a local install before you submit.

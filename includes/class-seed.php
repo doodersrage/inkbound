@@ -140,7 +140,7 @@ class Inkbound_Seed {
 		if ( ! is_wp_error( $id ) ) {
 			set_post_thumbnail( $story_id, $id );
 		} elseif ( file_exists( $tmp ) ) {
-			unlink( $tmp );
+			wp_delete_file( $tmp );
 		}
 	}
 
@@ -193,7 +193,8 @@ class Inkbound_Seed {
 			);
 			$sub = $wpdb->get_row(
 				$wpdb->prepare(
-					'SELECT * FROM ' . Inkbound_Follow::table() . ' WHERE user_id = %d AND story_id = %d LIMIT 1',
+					'SELECT * FROM %i WHERE user_id = %d AND story_id = %d LIMIT 1',
+					Inkbound_Follow::table(),
 					$user->ID,
 					$story_id
 				)

@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Template-scoped locals.
+
 $chapter = get_queried_object();
 $story   = inkbound_chapter_story( $chapter );
 if ( ! $story ) {
@@ -69,7 +71,16 @@ require INKB_DIR . 'templates/parts/header.php';
 	<article class="ink-prose js-prose">
 		<p class="ink-kicker"><?php echo esc_html( inkbound_chapter_heading( $chapter ) ); ?></p>
 		<h1><?php echo esc_html( $chapter->post_title ); ?></h1>
-		<p class="ink-by"><?php echo esc_html( sprintf( __( '%s words · %s', 'inkbound' ), number_format_i18n( $words ), get_the_date( '', $chapter ) ) ); ?></p>
+		<p class="ink-by"><?php
+		echo esc_html(
+			sprintf(
+				/* translators: 1: word count, 2: publish date */
+				__( '%1$s words · %2$s', 'inkbound' ),
+				number_format_i18n( $words ),
+				get_the_date( '', $chapter )
+			)
+		);
+		?></p>
 		<div class="ink-body">
 			<?php echo wp_kses_post( apply_filters( 'the_content', $chapter->post_content ) ); ?>
 		</div>
@@ -84,14 +95,30 @@ require INKB_DIR . 'templates/parts/header.php';
 	<nav class="ink-chapter-nav">
 		<?php if ( $prev ) : ?>
 			<a class="ink-btn ink-btn--ghost" rel="prev" href="<?php echo esc_url( get_permalink( $prev ) ); ?>">
-				<?php echo esc_html( sprintf( __( 'Previous · %s', 'inkbound' ), $prev->post_title ) ); ?>
+				<?php
+				echo esc_html(
+					sprintf(
+						/* translators: %s: previous chapter title */
+						__( 'Previous · %s', 'inkbound' ),
+						$prev->post_title
+					)
+				);
+				?>
 			</a>
 		<?php else : ?>
 			<a class="ink-btn ink-btn--ghost" href="<?php echo esc_url( get_permalink( $story ) ); ?>"><?php esc_html_e( 'Story home', 'inkbound' ); ?></a>
 		<?php endif; ?>
 		<?php if ( $next ) : ?>
 			<a class="ink-btn" rel="next" href="<?php echo esc_url( get_permalink( $next ) ); ?>">
-				<?php echo esc_html( sprintf( __( 'Next · %s', 'inkbound' ), $next->post_title ) ); ?>
+				<?php
+				echo esc_html(
+					sprintf(
+						/* translators: %s: next chapter title */
+						__( 'Next · %s', 'inkbound' ),
+						$next->post_title
+					)
+				);
+				?>
 			</a>
 		<?php endif; ?>
 	</nav>

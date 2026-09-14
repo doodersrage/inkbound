@@ -2,9 +2,11 @@
 .git/
 .github/
 .wp-dev/
-.wordpress-org/
+wordpress-org/
 .gitignore
-.distignore
+.gitattributes
+distignore
+Makefile
 *.log
 *.zip
 HOW-TO-USE-LOCALLY.txt

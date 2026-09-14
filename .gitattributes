@@ -1,0 +1,9 @@
+wordpress-org/ export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
+distignore export-ignore
+Makefile export-ignore
+README.md export-ignore
+HOW-TO-USE-LOCALLY.txt export-ignore
+*.zip export-ignore
+.github/ export-ignore

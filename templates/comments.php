@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Template-scoped locals.
+
 if ( post_password_required() ) {
 	return;
 }

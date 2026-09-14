@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Template-scoped locals.
+
 require INKB_DIR . 'templates/parts/header.php';
 
 $progress = Inkbound_Progress::continue_list( 20 );
@@ -49,7 +51,15 @@ $followed = is_user_logged_in() ? Inkbound_Follow::library_story_ids( get_curren
 <section class="ink-shelf">
 	<h2><?php esc_html_e( 'Following', 'inkbound' ); ?></h2>
 	<?php if ( ! is_user_logged_in() ) : ?>
-		<p class="ink-empty-line"><?php echo wp_kses_post( sprintf( __( '<a href="%s">Sign in</a> to keep a follow list and get on-site chapter alerts.', 'inkbound' ), esc_url( wp_login_url( inkbound_url( 'library' ) ) ) ) ); ?></p>
+		<p class="ink-empty-line"><?php
+		echo wp_kses_post(
+			sprintf(
+				/* translators: %s: login URL */
+				__( '<a href="%s">Sign in</a> to keep a follow list and get on-site chapter alerts.', 'inkbound' ),
+				esc_url( wp_login_url( inkbound_url( 'library' ) ) )
+			)
+		);
+		?></p>
 	<?php elseif ( ! $followed ) : ?>
 		<p class="ink-empty-line"><?php esc_html_e( 'You are not following anything yet. Follow from a story page to build your library.', 'inkbound' ); ?></p>
 	<?php else : ?>

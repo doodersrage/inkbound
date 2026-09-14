@@ -23,7 +23,8 @@ $tables = array(
 );
 
 foreach ( $tables as $table ) {
-	$wpdb->query( "DROP TABLE IF EXISTS {$table}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+	// Table names cannot be parameterized historically; %i is supported since WP 6.2.
+	$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $table ) );
 }
 
 $meta_keys = array(

@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Template-scoped locals.
+
 $query   = inkbound_catalog_query();
 $genres  = get_terms( array( 'taxonomy' => 'inkbound_genre', 'hide_empty' => true ) );
 $genre   = sanitize_title( wp_unslash( $_GET['genre'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended

@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Template-scoped locals.
+
 $unread = is_user_logged_in() ? Inkbound_Notify::unread_count( get_current_user_id() ) : 0;
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>

@@ -13,7 +13,7 @@ Upload the files in this folder to the plugin SVN `assets/` directory
 After approval, example:
 
   svn co https://plugins.svn.wordpress.org/inkbound inkbound-svn
-  cp .wordpress-org/* inkbound-svn/assets/
+  cp wordpress-org/* inkbound-svn/assets/
   svn add inkbound-svn/assets/*
   svn ci -m "Add directory assets"
 
@@ -22,5 +22,5 @@ Submission checklist (owner account)
 1. Enable 2FA on your WordPress.org account.
 2. Confirm Contributors in readme.txt matches your .org username.
 3. Run Plugin Check (Plugin Repo category) and fix blockers.
-4. Build the zip with ./bin/build-zip.sh (excludes bin/, .git, .wordpress-org).
+4. Build the zip with make zip (excludes Makefile, .git, wordpress-org).
 5. Submit at https://wordpress.org/plugins/developers/add/

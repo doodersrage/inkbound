@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Template-scoped locals.
+
 if ( ! is_user_logged_in() ) {
 	wp_safe_redirect( wp_login_url( inkbound_url( 'inbox' ) ) );
 	exit;

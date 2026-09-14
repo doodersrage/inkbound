@@ -38,7 +38,8 @@ class Inkbound_Progress {
 		if ( $user_id ) {
 			$row = $wpdb->get_row(
 				$wpdb->prepare(
-					'SELECT id FROM ' . self::table() . ' WHERE user_id = %d AND story_id = %d LIMIT 1',
+					'SELECT id FROM %i WHERE user_id = %d AND story_id = %d LIMIT 1',
+					self::table(),
 					$user_id,
 					$story_id
 				)
@@ -46,7 +47,8 @@ class Inkbound_Progress {
 		} else {
 			$row = $wpdb->get_row(
 				$wpdb->prepare(
-					'SELECT id FROM ' . self::table() . ' WHERE reader_id = %s AND story_id = %d LIMIT 1',
+					'SELECT id FROM %i WHERE reader_id = %s AND story_id = %d LIMIT 1',
+					self::table(),
 					$reader_id,
 					$story_id
 				)
@@ -72,13 +74,15 @@ class Inkbound_Progress {
 	public static function get_for_story( int $story_id, int $user_id = 0, string $reader_id = '' ): ?object {
 		global $wpdb;
 		$user_id   = $user_id ?: get_current_user_id();
-		$reader_id = $reader_id ?: ( $user_id ? '' : ( $_COOKIE['inkbound_rid'] ?? '' ) );
-		$reader_id = sanitize_text_field( (string) $reader_id );
+		if ( ! $reader_id && ! $user_id && isset( $_COOKIE['inkbound_rid'] ) ) {
+			$reader_id = sanitize_text_field( wp_unslash( $_COOKIE['inkbound_rid'] ) );
+		}
 
 		if ( $user_id ) {
 			$row = $wpdb->get_row(
 				$wpdb->prepare(
-					'SELECT * FROM ' . self::table() . ' WHERE user_id = %d AND story_id = %d LIMIT 1',
+					'SELECT * FROM %i WHERE user_id = %d AND story_id = %d LIMIT 1',
+					self::table(),
 					$user_id,
 					$story_id
 				)
@@ -90,7 +94,8 @@ class Inkbound_Progress {
 		}
 		$row = $wpdb->get_row(
 			$wpdb->prepare(
-				'SELECT * FROM ' . self::table() . ' WHERE reader_id = %s AND story_id = %d LIMIT 1',
+				'SELECT * FROM %i WHERE reader_id = %s AND story_id = %d LIMIT 1',
+				self::table(),
 				$reader_id,
 				$story_id
 			)
@@ -106,12 +111,13 @@ class Inkbound_Progress {
 	public static function continue_list( int $limit = 6 ): array {
 		global $wpdb;
 		$user_id   = get_current_user_id();
-		$reader_id = sanitize_text_field( (string) ( $_COOKIE['inkbound_rid'] ?? '' ) );
+		$reader_id = isset( $_COOKIE['inkbound_rid'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['inkbound_rid'] ) ) : '';
 
 		if ( $user_id ) {
 			return $wpdb->get_results(
 				$wpdb->prepare(
-					'SELECT * FROM ' . self::table() . ' WHERE user_id = %d ORDER BY updated_at DESC LIMIT %d',
+					'SELECT * FROM %i WHERE user_id = %d ORDER BY updated_at DESC LIMIT %d',
+					self::table(),
 					$user_id,
 					$limit
 				)
@@ -122,7 +128,8 @@ class Inkbound_Progress {
 		}
 		return $wpdb->get_results(
 			$wpdb->prepare(
-				'SELECT * FROM ' . self::table() . ' WHERE reader_id = %s ORDER BY updated_at DESC LIMIT %d',
+				'SELECT * FROM %i WHERE reader_id = %s ORDER BY updated_at DESC LIMIT %d',
+				self::table(),
 				$reader_id,
 				$limit
 			)

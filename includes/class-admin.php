@@ -164,7 +164,7 @@ class Inkbound_Admin {
 		wp_nonce_field( 'inkbound_save_chapter', 'inkbound_chapter_nonce' );
 		$story_id = (int) $post->post_parent;
 		if ( ! $story_id && isset( $_GET['story_id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$story_id = (int) $_GET['story_id'];
+			$story_id = absint( wp_unslash( $_GET['story_id'] ) );
 		}
 		$number = (string) get_post_meta( $post->ID, '_inkbound_number', true );
 		$label  = (string) get_post_meta( $post->ID, '_inkbound_label', true );
@@ -314,7 +314,7 @@ class Inkbound_Admin {
 			return;
 		}
 		if ( ! empty( $_GET['inkbound_story_filter'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$query->set( 'post_parent', (int) $_GET['inkbound_story_filter'] );
+			$query->set( 'post_parent', absint( wp_unslash( $_GET['inkbound_story_filter'] ) ) );
 		}
 	}
 
@@ -322,8 +322,20 @@ class Inkbound_Admin {
 		$stories  = wp_count_posts( 'inkbound_story' );
 		$chapters = wp_count_posts( 'inkbound_chapter' );
 		global $wpdb;
-		$subs    = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . Inkbound_Follow::table() . " WHERE status = 'active'" );
-		$queued  = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . Inkbound_Mail::queue_table() . " WHERE status = 'queued'" );
+		$subs   = (int) $wpdb->get_var(
+			$wpdb->prepare(
+				'SELECT COUNT(*) FROM %i WHERE status = %s',
+				Inkbound_Follow::table(),
+				'active'
+			)
+		);
+		$queued = (int) $wpdb->get_var(
+			$wpdb->prepare(
+				'SELECT COUNT(*) FROM %i WHERE status = %s',
+				Inkbound_Mail::queue_table(),
+				'queued'
+			)
+		);
 		$recent  = get_posts(
 			array(
 				'post_type'      => 'inkbound_chapter',
@@ -376,7 +388,13 @@ class Inkbound_Admin {
 			wp_die( esc_html__( 'You do not have permission to view subscribers.', 'inkbound' ) );
 		}
 		global $wpdb;
-		$rows = $wpdb->get_results( 'SELECT * FROM ' . Inkbound_Follow::table() . ' ORDER BY created_at DESC LIMIT 200' );
+		$rows = $wpdb->get_results(
+			$wpdb->prepare(
+				'SELECT * FROM %i ORDER BY created_at DESC LIMIT %d',
+				Inkbound_Follow::table(),
+				200
+			)
+		);
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Subscribers', 'inkbound' ); ?></h1>
@@ -421,7 +439,13 @@ class Inkbound_Admin {
 			echo '<div class="notice notice-success"><p>' . esc_html__( 'Mail queue processed.', 'inkbound' ) . '</p></div>';
 		}
 		global $wpdb;
-		$queue = $wpdb->get_results( 'SELECT * FROM ' . Inkbound_Mail::queue_table() . ' ORDER BY id DESC LIMIT 50' );
+		$queue = $wpdb->get_results(
+			$wpdb->prepare(
+				'SELECT * FROM %i ORDER BY id DESC LIMIT %d',
+				Inkbound_Mail::queue_table(),
+				50
+			)
+		);
 		$log   = Inkbound_Mail::log();
 		?>
 		<div class="wrap">
@@ -522,8 +546,11 @@ class Inkbound_Admin {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
-		$raw  = wp_unslash( $_POST['inkbound_options'] );
-		$save = inkbound_default_options();
+		$raw = map_deep( wp_unslash( $_POST['inkbound_options'] ), 'sanitize_text_field' );
+		if ( ! is_array( $raw ) ) {
+			return;
+		}
+		$save                      = inkbound_default_options();
 		$save['replace_home']      = ! empty( $raw['replace_home'] );
 		$save['catalog_title']     = sanitize_text_field( $raw['catalog_title'] ?? '' );
 		$save['catalog_tagline']   = sanitize_text_field( $raw['catalog_tagline'] ?? '' );

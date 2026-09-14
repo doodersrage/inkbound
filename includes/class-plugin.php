@@ -54,7 +54,6 @@ class Inkbound_Plugin {
 
 	public function boot(): void {
 		$this->maybe_upgrade();
-		$this->load_textdomain();
 
 		Inkbound_CPT::instance()->boot();
 		Inkbound_Follow::instance()->boot();
@@ -76,17 +75,6 @@ class Inkbound_Plugin {
 			require_once INKB_DIR . 'includes/class-cli.php';
 			WP_CLI::add_command( 'inkbound', 'Inkbound_CLI' );
 		}
-	}
-
-	/**
-	 * Load translations for local / non-.org installs.
-	 */
-	public function load_textdomain(): void {
-		load_plugin_textdomain(
-			'inkbound',
-			false,
-			dirname( plugin_basename( INKB_FILE ) ) . '/languages'
-		);
 	}
 
 	/**

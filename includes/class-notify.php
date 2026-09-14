@@ -86,7 +86,8 @@ class Inkbound_Notify {
 		global $wpdb;
 		return (int) $wpdb->get_var(
 			$wpdb->prepare(
-				'SELECT COUNT(*) FROM ' . self::table() . ' WHERE user_id = %d AND read_at IS NULL',
+				'SELECT COUNT(*) FROM %i WHERE user_id = %d AND read_at IS NULL',
+				self::table(),
 				$user_id
 			)
 		);
@@ -96,7 +97,8 @@ class Inkbound_Notify {
 		global $wpdb;
 		return $wpdb->get_results(
 			$wpdb->prepare(
-				'SELECT * FROM ' . self::table() . ' WHERE user_id = %d ORDER BY created_at DESC LIMIT %d',
+				'SELECT * FROM %i WHERE user_id = %d ORDER BY created_at DESC LIMIT %d',
+				self::table(),
 				$user_id,
 				$limit
 			)
@@ -119,7 +121,8 @@ class Inkbound_Notify {
 		}
 		$wpdb->query(
 			$wpdb->prepare(
-				'UPDATE ' . self::table() . ' SET read_at = %s WHERE user_id = %d AND read_at IS NULL',
+				'UPDATE %i SET read_at = %s WHERE user_id = %d AND read_at IS NULL',
+				self::table(),
 				$now,
 				$user_id
 			)

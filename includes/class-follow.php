@@ -33,7 +33,8 @@ class Inkbound_Follow {
 		global $wpdb;
 		return (int) $wpdb->get_var(
 			$wpdb->prepare(
-				'SELECT COUNT(*) FROM ' . self::table() . ' WHERE story_id = %d AND status = %s',
+				'SELECT COUNT(*) FROM %i WHERE story_id = %d AND status = %s',
+				self::table(),
 				$story_id,
 				'active'
 			)
@@ -48,7 +49,8 @@ class Inkbound_Follow {
 		if ( $user_id ) {
 			$found = $wpdb->get_var(
 				$wpdb->prepare(
-					'SELECT id FROM ' . self::table() . ' WHERE story_id = %d AND user_id = %d AND status = %s LIMIT 1',
+					'SELECT id FROM %i WHERE story_id = %d AND user_id = %d AND status = %s LIMIT 1',
+					self::table(),
 					$story_id,
 					$user_id,
 					'active'
@@ -59,7 +61,8 @@ class Inkbound_Follow {
 		if ( $email ) {
 			$found = $wpdb->get_var(
 				$wpdb->prepare(
-					'SELECT id FROM ' . self::table() . ' WHERE story_id = %d AND email = %s AND status = %s LIMIT 1',
+					'SELECT id FROM %i WHERE story_id = %d AND email = %s AND status = %s LIMIT 1',
+					self::table(),
 					$story_id,
 					$email,
 					'active'
@@ -72,7 +75,7 @@ class Inkbound_Follow {
 
 	public static function get( int $id ): ?object {
 		global $wpdb;
-		$row = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . self::table() . ' WHERE id = %d', $id ) );
+		$row = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM %i WHERE id = %d', self::table(), $id ) );
 		return $row ?: null;
 	}
 
@@ -104,7 +107,8 @@ class Inkbound_Follow {
 		if ( $user_id ) {
 			$existing = $wpdb->get_row(
 				$wpdb->prepare(
-					'SELECT * FROM ' . self::table() . ' WHERE story_id = %d AND user_id = %d LIMIT 1',
+					'SELECT * FROM %i WHERE story_id = %d AND user_id = %d LIMIT 1',
+					self::table(),
 					$story_id,
 					$user_id
 				)
@@ -113,7 +117,8 @@ class Inkbound_Follow {
 		if ( ! $existing && $email ) {
 			$existing = $wpdb->get_row(
 				$wpdb->prepare(
-					'SELECT * FROM ' . self::table() . ' WHERE story_id = %d AND email = %s LIMIT 1',
+					'SELECT * FROM %i WHERE story_id = %d AND email = %s LIMIT 1',
+					self::table(),
 					$story_id,
 					$email
 				)
@@ -200,7 +205,7 @@ class Inkbound_Follow {
 	public static function unfollow_token( string $token ): ?object {
 		global $wpdb;
 		$row = $wpdb->get_row(
-			$wpdb->prepare( 'SELECT * FROM ' . self::table() . ' WHERE unsub_token = %s LIMIT 1', $token )
+			$wpdb->prepare( 'SELECT * FROM %i WHERE unsub_token = %s LIMIT 1', self::table(), $token )
 		);
 		if ( ! $row ) {
 			return null;
@@ -213,7 +218,7 @@ class Inkbound_Follow {
 	public static function confirm_token( string $token ): ?object {
 		global $wpdb;
 		$row = $wpdb->get_row(
-			$wpdb->prepare( 'SELECT * FROM ' . self::table() . ' WHERE confirm_token = %s LIMIT 1', $token )
+			$wpdb->prepare( 'SELECT * FROM %i WHERE confirm_token = %s LIMIT 1', self::table(), $token )
 		);
 		if ( ! $row ) {
 			return null;
@@ -234,7 +239,8 @@ class Inkbound_Follow {
 		global $wpdb;
 		return $wpdb->get_results(
 			$wpdb->prepare(
-				'SELECT * FROM ' . self::table() . ' WHERE story_id = %d AND status = %s',
+				'SELECT * FROM %i WHERE story_id = %d AND status = %s',
+				self::table(),
 				$story_id,
 				'active'
 			)
@@ -245,7 +251,8 @@ class Inkbound_Follow {
 		global $wpdb;
 		$ids = $wpdb->get_col(
 			$wpdb->prepare(
-				'SELECT story_id FROM ' . self::table() . ' WHERE user_id = %d AND status = %s',
+				'SELECT story_id FROM %i WHERE user_id = %d AND status = %s',
+				self::table(),
 				$user_id,
 				'active'
 			)
@@ -288,7 +295,7 @@ class Inkbound_Follow {
 			return;
 		}
 
-		$story_id = (int) ( $_POST['story_id'] ?? 0 );
+		$story_id = isset( $_POST['story_id'] ) ? absint( wp_unslash( $_POST['story_id'] ) ) : 0;
 		$redirect = wp_get_referer() ?: inkbound_url();
 
 		if ( 'subscribe_email' === $action ) {

@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals -- Template-scoped locals.
+
 $story     = get_queried_object();
 $chapters  = inkbound_story_chapters( (int) $story->ID );
 $first     = $chapters[0] ?? null;
@@ -44,7 +46,15 @@ require INKB_DIR . 'templates/parts/header.php';
 			<?php endif; ?>
 			<h1><?php echo esc_html( $story->post_title ); ?></h1>
 			<?php if ( $subtitle ) : ?><p class="ink-lede"><?php echo esc_html( $subtitle ); ?></p><?php endif; ?>
-			<p class="ink-by"><?php echo esc_html( sprintf( __( 'By %s', 'inkbound' ), get_the_author_meta( 'display_name', $story->post_author ) ) ); ?></p>
+			<p class="ink-by"><?php
+			echo esc_html(
+				sprintf(
+					/* translators: %s: author display name */
+					__( 'By %s', 'inkbound' ),
+					get_the_author_meta( 'display_name', $story->post_author )
+				)
+			);
+			?></p>
 			<ul class="ink-stats">
 				<li><strong><?php echo esc_html( (string) count( $chapters ) ); ?></strong> <?php esc_html_e( 'chapters', 'inkbound' ); ?></li>
 				<li><strong><?php echo esc_html( inkbound_format_count( $words ) ); ?></strong> <?php esc_html_e( 'words', 'inkbound' ); ?></li>
